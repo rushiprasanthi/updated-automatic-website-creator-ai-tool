@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Job Application</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; background:#f6f8fb; color:#222; }
+    form { max-width:800px; margin:0 auto; background:#fff; padding:20px; border-radius:8px; box-shadow:0 6px 18px rgba(0,0,0,0.06); }
+    h2{ margin-bottom:10px; color:#0d47a1;}
+    label{display:block; margin-top:12px; font-weight:600;}
+    input[type="text"], input[type="email"], input[type="date"], textarea, select { width:100%; padding:10px; margin-top:6px; border:1px solid #d7dbe0; border-radius:6px; }
+    .row{ display:flex; gap:12px; }
+    .row .col{ flex:1; }
+    button{ margin-top:16px; background:#1976d2; color:#fff; padding:12px 18px; border:0; border-radius:6px; cursor:pointer; font-weight:600;}
+  </style>
+</head>
+<body>
+
+<form method="POST" action="/apply" id="applicationForm">
+  <h2>Job Application</h2>
+
+  <input type="hidden" name="owner" id="owner" value="">
+  <input type="hidden" name="job_title" id="job_title" value="">
+
+  <h3>1. Personal Details</h3>
+  <div class="row">
+    <div class="col">
+      <label>First Name *</label>
+      <input name="first_name" required placeholder="Given Name" />
+    </div>
+    <div class="col">
+      <label>Last Name *</label>
+      <input name="last_name" required placeholder="Surname" />
+    </div>
+  </div>
+
+  <label>Middle Name</label>
+  <input name="middle_name" placeholder="Middle name (optional)" />
+
+  <div class="row">
+    <div class="col">
+      <label>Date of Birth</label>
+      <input name="dob" type="date" />
+    </div>
+    <div class="col">
+      <label>Gender</label>
+      <input name="gender" placeholder="Optional" />
+    </div>
+  </div>
+
+  <label>Nationality</label>
+  <input name="nationality" />
+
+  <h3>2. Contact Information</h3>
+  <div class="row">
+    <div class="col">
+      <label>Email Address *</label>
+      <input name="applicant_email" type="email" required />
+    </div>
+    <div class="col">
+      <label>Mobile Number *</label>
+      <input name="mobile" required />
+    </div>
+  </div>
+
+  <label>Alternate Phone Number</label>
+  <input name="alt_phone" />
+
+  <label>Current Address</label>
+  <input name="address" />
+
+  <div class="row">
+    <div class="col">
+      <label>City</label><input name="city" />
+    </div>
+    <div class="col">
+      <label>State</label><input name="state" />
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <label>Country</label><input name="country" />
+    </div>
+    <div class="col">
+      <label>Postal / ZIP Code</label><input name="postal_code" />
+    </div>
+  </div>
+
+  <h3>3. Professional Information</h3>
+  <label>Job Title Applying For *</label>
+  <input name="job_title_visible" id="job_title_visible" placeholder="Position you are applying for" />
+
+  <div class="row">
+    <div class="col">
+      <label>Total Work Experience</label><input name="experience" placeholder="e.g. 3 years 4 months" />
+    </div>
+    <div class="col">
+      <label>Current Job Title</label><input name="current_job_title" />
+    </div>
+  </div>
+  <label>Current Company Name</label><input name="current_company" />
+  <div class="row">
+    <div class="col">
+      <label>Expected Salary</label><input name="expected_salary" />
+    </div>
+    <div class="col">
+      <label>Current Salary</label><input name="current_salary" />
+    </div>
+  </div>
+  <label>Notice Period / Availability</label><input name="notice_period" />
+  <label>Preferred Work Location</label><input name="preferred_location" />
+  <label>Employment Type</label><input name="employment_type" placeholder="Full-time / Part-time / Contract" />
+
+  <h3>4. Educational Details</h3>
+  <label>Highest Qualification</label><input name="highest_qualification" />
+  <label>Degree / Course Name</label><input name="degree" />
+  <label>Specialization</label><input name="specialization" />
+  <label>University / College Name</label><input name="university" />
+  <div class="row">
+    <div class="col">
+      <label>Year of Graduation</label><input name="graduation_year" />
+    </div>
+    <div class="col">
+      <label>CGPA / Percentage</label><input name="grade" />
+    </div>
+  </div>
+
+  <h3>5. Skills & Technical Details</h3>
+  <label>Technical Skills</label>
+  <textarea name="skills" rows="4" placeholder="List core competencies, tools, frameworks"></textarea>
+
+  <label>Programming Languages</label><input name="programming_languages" />
+  <label>Certifications</label><input name="certifications" />
+  <label>Projects / Portfolio Links</label><input name="portfolio" placeholder="GitHub, Website, etc." />
+
+  <button type="submit">Submit Application</button>
+</form>
+
+<script>
+  // Read owner and job from query string and populate hidden fields (owner should match server OWNER_EMAIL)
+  (function(){
+    const params = new URLSearchParams(window.location.search);
+    const owner = params.get('owner') || '';
+    const job = params.get('job') || '';
+    document.getElementById('owner').value = owner;
+    document.getElementById('job_title').value = decodeURIComponent(job);
+    document.getElementById('job_title_visible').value = decodeURIComponent(job);
+  })();
+</script>
+</body>
+</html>
